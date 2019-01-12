@@ -108,7 +108,7 @@ class SinglyLinkedList():
         '''在链表的某个指定Node节点之前插入一个存储value数据的Node节点.
         参数:
             node:指定的一个Node节点
-            value:将要存储在新的Node节点中的数据
+            value:将要存储在新的Node节点中的数据 
         '''
         if node == None or self.__head == None:  # 如果指定在一个空节点之前或者空链表之前插入数据节点，则什么都不做
             return
@@ -167,7 +167,7 @@ class SinglyLinkedList():
         pro = self.__head
         node = self.__head.next
         not_found = False
-        while node.data != value:
+        while node.data != value: //如果node节点为None的话，那么这个语句是通不过的，这种做法有问题，更新见如下程序：
             if node.next == None:  # 如果已经到链表的最后一个节点，则表明该链表中没有找到执行Value值的Node节点
                 not_found == True
                 break
@@ -176,6 +176,29 @@ class SinglyLinkedList():
                 node = node.next
         if not_found == False:
             pro.next = node.next
+            
+   # 更改：
+    def deleteByValue(self, value):
+            if self.__head == None:
+                print("the list is empty")
+                return
+
+            if self.__head.data == value:
+                self.__head = self.__head.next
+                return
+
+            else:
+                node = self.__head
+                while node.next:
+                    if node.next.data == value:
+                        node.next = node.next.next
+                        self.__length -= 1
+                        return True
+                    node = node.next
+                print('not found')
+                return False
+
+            
 
     def delete_last_N_node(self, n):
         '''删除链表中倒数第N个节点.
